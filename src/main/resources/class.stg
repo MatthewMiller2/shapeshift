@@ -9,6 +9,11 @@ public class <schema.name> {
   public <schema.name>(<if(first(schema.fields))><genParams(first(schema.fields), rest(schema.fields))><endif>) {
     <if(first(schema.fields))><genConstructorBody(first(schema.fields), rest(schema.fields))><endif>
   }
+  <if(first(schema.fields))>
+
+  <genGetters(first(schema.fields), rest(schema.fields))><endif>
+  <if(first(schema.fields))>
+  <genSetters(first(schema.fields), rest(schema.fields))><endif>
 }
 
 >>
@@ -25,4 +30,22 @@ genVariables(input, other) ::= <<
 genConstructorBody(input, other) ::= <<
 this.<input.name> = <input.name>;<if(other)>
 <genConstructorBody(first(other), rest(other))><endif>
+>>
+
+genGetters(input, other) ::= <<
+public <input.type> get<input.name>() {
+  return <input.name>;
+}
+<if(other)>
+
+<genGetters(first(other), rest(other))><endif>
+>>
+
+genSetters(input, other) ::= <<
+public void set<input.name>(<input.type>, <input.name>) {
+  this.<input.name> = <input.name>;
+}
+<if(other)>
+
+<genSetters(first(other), rest(other))><endif>
 >>

@@ -7,10 +7,8 @@ public class ShapeShift {
   public static void main(String[] args) {
 
     Table person = new Table("Person");
-    Field person_name = new Field("String", "person_name");
-    Field person_age = new Field("int", "person_age");
-    person.addField(person_name);
-    person.addField(person_age);
+    person.addField(new Field("String", "name"));
+    person.addField(new Field("int", "age"));
 
     STGroup group = new STGroupFile("class.stg");
     ST st = group.getInstanceOf("entry");
