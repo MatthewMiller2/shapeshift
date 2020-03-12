@@ -1,0 +1,13 @@
+entry(schema) ::= <<
+
+public class <schema.name> {
+  public <schema.name>(<if(first(schema.fields))><genParams(first(schema.fields), rest(schema.fields))><endif>) {
+
+  }
+}
+
+>>
+
+genParams(input, other) ::= <<
+<input.type> <input.name><if(other)>, <endif><if(other)><genParams(first(other), rest(other))><endif>
+>>
