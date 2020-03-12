@@ -33,7 +33,7 @@ this.<input.name> = <input.name>;<if(other)>
 >>
 
 genGetters(input, other) ::= <<
-public <input.type> get<input.name>() {
+public <input.type> get<input.name; format="cap">() {
   return <input.name>;
 }
 <if(other)>
@@ -42,7 +42,7 @@ public <input.type> get<input.name>() {
 >>
 
 genSetters(input, other) ::= <<
-public void set<input.name>(<input.type>, <input.name>) {
+public void set<input.name; format="cap">(<input.type>, <input.name>) {
   this.<input.name> = <input.name>;
 }
 <if(other)>
