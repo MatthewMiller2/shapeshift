@@ -1,13 +1,28 @@
 entry(schema) ::= <<
 
 public class <schema.name> {
-  public <schema.name>(<if(first(schema.fields))><genParams(first(schema.fields), rest(schema.fields))><endif>) {
 
+  <if(first(schema.fields))>
+  <genVariables(first(schema.fields), rest(schema.fields))>
+  <endif>
+
+  public <schema.name>(<if(first(schema.fields))><genParams(first(schema.fields), rest(schema.fields))><endif>) {
+    <if(first(schema.fields))><genConstructorBody(first(schema.fields), rest(schema.fields))><endif>
   }
 }
 
 >>
 
 genParams(input, other) ::= <<
-<input.type> <input.name><if(other)>, <endif><if(other)><genParams(first(other), rest(other))><endif>
+<input.type> <input.name><if(other)>, <genParams(first(other), rest(other))><endif>
+>>
+
+genVariables(input, other) ::= <<
+<input.type> <input.name>;<if(other)>
+<genVariables(first(other), rest(other))><endif>
+>>
+
+genConstructorBody(input, other) ::= <<
+this.<input.name> = <input.name>;<if(other)>
+<genConstructorBody(first(other), rest(other))><endif>
 >>
